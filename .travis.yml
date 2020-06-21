@@ -7,4 +7,4 @@ before_install:         # Steps before we deploy or run our tests
     - docker build -t my-docker-react-app -f Dockerfile.dev .
 
 script:
-    - docker run my-docker-react-app npm run test -- --coverage
+    - docker run -it my-docker-react-app npm run test -- --coverage
