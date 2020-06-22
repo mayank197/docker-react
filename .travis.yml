@@ -8,3 +8,20 @@ before_install:         # Steps before we deploy or run our tests
 
 script:
     - docker run -e CI=true my-docker-react-app npm run test
+
+# Telling Travis how to take our application and deploy to AWS
+deploy:
+    provider: elasticbeanstalk
+    region: "us-east-2"
+    app: "docker-react"
+    env: "DockerReact-env"
+    bucket_name: "elasticbeanstalk-us-east-2-205405356006"
+    bucket_path: "docker-react"
+    # Only attempt to deploy when new changes are pushed to master branch (not feature branch)
+    on:
+        branch: master
+    
+    # Access Keys, we've added to Travis CI's environment variables. Get it from there
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key:
+        secure: "$AWS_SECRET_KEY"
